@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p app/contact-us)",
+      "Bash(npm run dev)"
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -12,6 +13,9 @@ export default function Home() {
           height={20}
           priority
         />
+        <button className="mt-10 rounded-full bg-blue-600 px-6 py-3 text-white hover:bg-blue-700">
+        <Link href="/contact-us">Ye page chek karo</Link>
+        </button>
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             To get started, edit the page.tsx file.
