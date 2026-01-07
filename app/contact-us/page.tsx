@@ -23,7 +23,7 @@ const ContactFormBlue: React.FC = () => {
   };
 
   return (
-    <div className="relative bg-blue-700 min-h-[500px] h-[60vh] py-16 px-4 overflow-">
+    <div className="relative bg-blue-700 min-h-[500px] h-[60vh] py-16 px-4 overflow-hidden">
       {/* Decorative circles */}
       <div className="absolute top-20 left-32 w-40 h-40 rounded-full border-2 border-blue-500 opacity-30"></div>
       <div className="absolute bottom-32 left-16 w-32 h-32 rounded-full border-2 border-blue-500 opacity-30"></div>
