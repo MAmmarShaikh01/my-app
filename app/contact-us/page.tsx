@@ -31,7 +31,8 @@ const ContactFormBlue: React.FC = () => {
       <div className="absolute bottom-1/4 right-1/3 w-24 h-24 rounded-full border-2 border-blue-400 opacity-25"></div>
 
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center w-full h-full justify-center gap-8 relative z-10">
-        {/* Form Section - White Glassmorphic */}
+
+
 <div 
   className="w-full lg:w-[40%] rounded-3xl p-6 shadow-2xl"
   style={{
@@ -99,13 +100,19 @@ const ContactFormBlue: React.FC = () => {
 </div>
 
 
-        {/* Spacer for gap */}
         <div className="hidden lg:block w-16"></div>
 
-        {/* Image Section with "Drop us a line" - Hidden on mobile */}
         <div className="hidden lg:block w-full lg:w-[50%] relative">
-          {/* Drop us a line bubble - overlapping LEFT half of the image */}
-          <div className="absolute -right-[-80%] top-20 z-30">
+
+
+<div
+  className="bg-white rounded-3xl shadow-2xl w-[420px] h-[420px] ml-auto bg-cover bg-center bg-no-repeat relative"
+  style={{
+    backgroundImage:
+      "url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=450&fit=crop')"
+  }}
+>
+  <div className="absolute -right-[-90%] top-20 z-50">
             <div className="bg-white rounded-full px-6 py-3 shadow-xl inline-block">
               <span className="text-blue-700 font-bold text-base whitespace-nowrap">Drop us a line</span>
             </div>
@@ -128,14 +135,9 @@ const ContactFormBlue: React.FC = () => {
 
           </div>
 
-          {/* Image container - smaller size */}
-          <div className="bg-white rounded-3xl overflow-hidden shadow-2xl w-[420px] ml-auto">
-            <img
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=450&fit=crop"
-              alt="Customer service representative"
-              className="w-full h-[420px] object-cover"
-            />
-          </div>
+</div>
+
+
         </div>
       </div>
     </div>
