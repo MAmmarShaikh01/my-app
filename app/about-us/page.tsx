@@ -266,7 +266,7 @@ export default function DigitizingLandingPage() {
       </section>
 
       {/* Our Journey Section */}
-  <section className="bg-gray-100 py-16 lg:py-24 ">
+  <section className="bg-gray-50 py-16 lg:py-24 ">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 text-black">
             Our Journey Through Out The Years
