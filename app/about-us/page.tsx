@@ -1,9 +1,90 @@
-import { Lightbulb, Shield, Award } from 'lucide-react';
-import Image from 'next/image';
+"use client";
+
+import { Lightbulb, Shield, Award } from "lucide-react";
+import { motion, useAnimation } from "framer-motion";
+import Image from "next/image";
+import { useEffect } from "react";
+
+/* =======================
+   DATA (AKA BRAIN 🧠)
+======================= */
+const values = [
+  {
+    title: "Innovation",
+    desc: "Continuously embracing new technologies and creative approaches.",
+    icon: Lightbulb,
+  },
+  {
+    title: "Integrity",
+    desc: "Operating with transparency, honesty, and ethical practices.",
+    icon: Shield,
+  },
+  {
+    title: "Excellence",
+    desc: "Striving for perfection in every detail we deliver.",
+    icon: Award,
+  },
+];
+
+const team = [
+  {
+    name: "Eleanor Vance",
+    role: "Founder & Lead Digitizer",
+    img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
+  },
+  {
+    name: "Marsus Thorne",
+    role: "Head of Vector Art",
+    img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop",
+  },
+  {
+    name: "Sophie Chen",
+    role: "Creative Director",
+    img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
+  },
+];
+
+const timeline = [
+  { year: "2010", desc: "Company founded with a vision to revolutionize digitizing." },
+  { year: "2014", desc: "Expanded services to raster to vector conversions." },
+  { year: "2018", desc: "Launched custom design services." },
+  { year: "2022", desc: "Implemented AI-powered precision tools." },
+];
+
+const testimonials = [
+  {
+    name: "Sarah Jenkins",
+    role: "CEO, Stellar Threads",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since ",
+  },
+  {
+    name: "David Rodriguez",
+    role: "Marketing Director, Urban Canvas",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    name: "Emily White",
+    role: "Owner, Bespoke Crafts",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+];
+
+
 
 export default function DigitizingLandingPage() {
+  const controls = useAnimation();
+  useEffect(() => {
+  controls.start({
+    x: ["0%", "-50%"],
+    transition: {
+      repeat: Infinity,
+      duration: 30,
+      ease: "linear",
+    },
+  });
+}, [controls]);
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50" suppressHydrationWarning>
       {/* Hero Section */}
       <section className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
@@ -67,63 +148,33 @@ export default function DigitizingLandingPage() {
       </section>
 
       {/* Mission Section */}
-      <section className="bg-white py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-              Our Mission: Empowering Creativity with Precision
-            </h2>
-            <p className="text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              At Artdigitizing, our mission is to empower businesses and individuals by providing exceptional digital art services that transform concepts into tangible, high-quality assets. We are committed to precision, innovation, and client satisfaction, ensuring every project reflects the highest standards of craftsmanship.
-            </p>
-          </div>
+      <section className="bg-white text-black py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-12">
+            Our Mission: Empowering Creativity
+          </h2>
 
-          {/* Values Grid */}
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12 place-items-center">
-            {/* Innovation */}
-            <div className="bg-gray-50 px-6 py-8 w-full max-w-sm rounded-xl text-center space-y-4">
-              <div className="flex justify-center">
-                <div className="bg-white p-4 rounded-full">
-                  <Lightbulb className="w-8 h-8 text-blue-600" />
+          <div className="grid md:grid-cols-3 gap-8">
+            {values.map((v) => (
+              <div
+                key={v.title}
+                className="bg-gray-50 p-8 rounded-xl space-y-4"
+              >
+                <div className="flex justify-center">
+                  <div className="bg-white p-4 rounded-full">
+                    <v.icon className="w-8 h-8 text-[#0A21C0]" />
+                  </div>
                 </div>
+                <h3 className="text-xl font-bold">{v.title}</h3>
+                <p className="text-gray-600">{v.desc}</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900">Innovation</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Continuously embracing new technologies and creative approaches to deliver cutting-edge solutions.
-              </p>
-            </div>
-
-            {/* Integrity */}
-            <div className="bg-gray-50 px-6 py-8 w-full max-w-sm rounded-xl text-center space-y-4">
-              <div className="flex justify-center">
-                <div className="bg-white p-4 rounded-full">
-                  <Shield className="w-8 h-8 text-blue-600" />
-                </div>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Integrity</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Operating with transparency, honesty, and a strong commitment to ethical practices and honest dealings.
-              </p>
-            </div>
-
-            {/* Excellence */}
-            <div className="bg-gray-50 px-6 py-8 w-full max-w-sm rounded-xl text-center space-y-4">
-              <div className="flex justify-center">
-                <div className="bg-white p-4 rounded-full">
-                  <Award className="w-8 h-8 text-blue-600" />
-                </div>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Excellence</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Striving for perfection in every detail, ensuring the highest quality in all our projects and services.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Our Services Section */}
-      <section className="bg-gray-50 py-16 lg:py-24">
+      <section className="bg-gray-100/2 py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-16">
             Our Services: Digital Art Solutions
@@ -134,7 +185,7 @@ export default function DigitizingLandingPage() {
             <div className="bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-md transition-shadow">
               <div className="flex justify-center mb-4">
                 <div className="bg-blue-50 p-4 rounded-full">
-                  <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-12 h-12 text-[#0A21C0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                   </svg>
                 </div>
@@ -143,7 +194,7 @@ export default function DigitizingLandingPage() {
               <p className="text-gray-600 text-sm mb-6 leading-relaxed">
                 Transform your designs into high-quality embroidery files with precision and detail, tailored for all fabric types.
               </p>
-              <button className="text-blue-600 font-semibold text-sm hover:text-blue-700">
+              <button className="text-[#0A21C0] font-semibold text-sm hover:text-blue-700">
                 Learn More
               </button>
             </div>
@@ -152,7 +203,7 @@ export default function DigitizingLandingPage() {
             <div className="bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-md transition-shadow">
               <div className="flex justify-center mb-4">
                 <div className="bg-blue-50 p-4 rounded-full">
-                  <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-12 h-12 text-[#0A21C0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                   </svg>
                 </div>
@@ -161,7 +212,7 @@ export default function DigitizingLandingPage() {
               <p className="text-gray-600 text-sm mb-6 leading-relaxed">
                 Convert any low-resolution image into a crisp, scalable vector format, perfect for printing and branding.
               </p>
-              <button className="text-blue-600 font-semibold text-sm hover:text-blue-700">
+              <button className="text-[#0A21C0] font-semibold text-sm hover:text-blue-700">
                 Learn More
               </button>
             </div>
@@ -170,7 +221,7 @@ export default function DigitizingLandingPage() {
             <div className="bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-md transition-shadow">
               <div className="flex justify-center mb-4">
                 <div className="bg-blue-50 p-4 rounded-full">
-                  <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-12 h-12 text-[#0A21C0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
                   </svg>
                 </div>
@@ -179,7 +230,7 @@ export default function DigitizingLandingPage() {
               <p className="text-gray-600 text-sm mb-6 leading-relaxed">
                 Bring your unique ideas to life with bespoke design solutions tailored to your brand and creative requirements.
               </p>
-              <button className="text-blue-600 font-semibold text-sm hover:text-blue-700">
+              <button className="text-[#0A21C0] font-semibold text-sm hover:text-blue-700">
                 Learn More
               </button>
             </div>
@@ -188,167 +239,162 @@ export default function DigitizingLandingPage() {
       </section>
 
       {/* Meet Our Team Section */}
-      <section className="bg-white py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-16">
-            Meet Our Dedicated Team
+ <section className="bg-white py-16 lg:py-24 text-black">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12">
+            Meet Our Team
           </h2>
-          
+
           <div className="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto">
-            {/* Eleanor Vance */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
+            {team.map((m) => (
+              <div key={m.name} className="text-center">
+                <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4">
                   <Image
-                  width={50}
-                  height={50}
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop"
-                    alt="Eleanor Vance"
-                    className="w-full h-full object-cover"
+                    src={m.img}
+                    alt={m.name}
+                    width={96}
+                    height={96}
+                    className="object-cover"
                   />
                 </div>
+                <h3 className="font-bold">{m.name}</h3>
+                <p className="text-[#0A21C0] text-sm">{m.role}</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-1">Eleanor Vance</h3>
-              <p className="text-blue-600 text-sm font-medium">Founder & Lead Digitizer</p>
-            </div>
-
-            {/* Marsus Thorne */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
-                  <Image
-                  width={50}
-                  height={50}
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop"
-                    alt="Marsus Thorne"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-1">Marsus Thorne</h3>
-              <p className="text-blue-600 text-sm font-medium">Head of Vector Art</p>
-            </div>
-
-            {/* Sophie Chen */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
-                  <Image
-                  width={50}
-                  height={50}
-                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop"
-                    alt="Sophie Chen"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-1">Sophie Chen</h3>
-              <p className="text-blue-600 text-sm font-medium">Creative Director</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Our Journey Section */}
-      <section className="bg-gray-50 py-16 lg:py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-14">
-            Our Journey Through the Years
+  <section className="bg-gray-100 py-16 lg:py-24 ">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 text-black">
+            Our Journey Through Out The Years
           </h2>
 
-          <div className="divide-y divide-gray-200">
-            {/* 2010 */}
-            <div className="flex gap-6 py-6">
-              <div className="w-20 text-right flex-shrink-0">
-                <span className="text-blue-600 font-semibold">2010</span>
+          <div className="divide-y">
+            {timeline.map((t) => (
+              <div key={t.year} className="flex gap-6 py-6">
+                <div className="w-20 text-right font-semibold text-[#0A21C0]">
+                  {t.year}
+                </div>
+                <p className="text-gray-600">{t.desc}</p>
               </div>
-              <p className="text-gray-600 leading-relaxed">
-                Artdigitizing founded with a vision to revolutionize embroidery digitizing services.
-              </p>
-            </div>
-
-            {/* 2014 */}
-            <div className="flex gap-6 py-6">
-              <div className="w-20 text-right flex-shrink-0">
-                <span className="text-blue-600 font-semibold">2014</span>
-              </div>
-              <p className="text-gray-600 leading-relaxed">
-                Expanded service offerings to include high-quality raster to vector conversions.
-              </p>
-            </div>
-
-            {/* 2018 */}
-            <div className="flex gap-6 py-6">
-              <div className="w-20 text-right flex-shrink-0">
-                <span className="text-blue-600 font-semibold">2018</span>
-              </div>
-              <p className="text-gray-600 leading-relaxed">
-                Launched custom design services, empowering clients with bespoke creative solutions.
-              </p>
-            </div>
-
-            {/* 2022 */}
-            <div className="flex gap-6 py-6">
-              <div className="w-20 text-right flex-shrink-0">
-                <span className="text-blue-600 font-semibold">2022</span>
-              </div>
-              <p className="text-gray-600 leading-relaxed">
-                Implemented advanced AI-powered tools to enhance precision and turnaround times across all services.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="bg-white py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-16">
-            What Our Clients Say About Us
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-            {/* Testimonial 1 */}
-            <div className="bg-gray-50 rounded-lg p-8">
-              <div className="text-blue-600 text-5xl font-serif mb-4">&ldquo;</div>
-              <p className="text-gray-600 italic mb-6 leading-relaxed">
-                Artdigitizing consistently delivers outstanding quality. Their embroidery files are always perfect, and their team is incredibly responsive. They&apos;ve become an indispensable partner for our business.
-              </p>
-              <div className="border-t border-gray-200 pt-4">
-                <h4 className="font-bold text-gray-900">Sarah Jenkins</h4>
-                <p className="text-sm text-gray-500">CEO, Stellar Threads</p>
-              </div>
-            </div>
 
-            {/* Testimonial 2 */}
-            <div className="bg-gray-50 rounded-lg p-8">
-              <div className="text-blue-600 text-5xl font-serif mb-4">&ldquo;</div>
-              <p className="text-gray-600 italic mb-6 leading-relaxed">
-                The vector conversion service is top-notch. We&apos;ve sent them challenging, intricate logos, and they always return flawless, print-ready files. Highly recommend for any project!
-              </p>
-              <div className="border-t border-gray-200 pt-4">
-                <h4 className="font-bold text-gray-900">David Rodriguez</h4>
-                <p className="text-sm text-gray-500">Marketing Director, Urban Canvas</p>
-              </div>
-            </div>
+{/* Testimonials Section */}
 
-            {/* Testimonial 3 */}
-            <div className="bg-gray-50 rounded-lg p-8">
-              <div className="text-blue-600 text-5xl font-serif mb-4">&ldquo;</div>
-              <p className="text-gray-600 italic mb-6 leading-relaxed">
-                Our custom design project with Artdigitizing exceeded all expectations. They understood our vision perfectly and brought it to life with creativity and professionalism. An absolute pleasure to work with!
-              </p>
-              <div className="border-t border-gray-200 pt-4">
-                <h4 className="font-bold text-gray-900">Emily White</h4>
-                <p className="text-sm text-gray-500">Owner, Bespoke Crafts</p>
+
+<section className="bg-white py-16 lg:py-24 text-black overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4">
+    <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12">
+      What Our Clients Say
+    </h2>
+
+    <motion.div className="overflow-hidden">
+      <motion.div
+        className="flex gap-6"
+        animate={controls}
+        initial={{ x: "0%" }}
+        drag="x"
+        dragConstraints={{
+          left: -((testimonials.length * 2 - 1) * 340),
+          right: 0,
+        }}
+        onDragStart={() => {
+          controls.stop(); 
+        }}
+        onDragEnd={() => {
+          controls.start({
+            x: ["0%", "-50%"],
+            transition: {
+              repeat: Infinity,
+              duration: 30,
+              ease: "linear",
+            },
+          });
+        }}
+      >
+        {[...Array(2)].map((_, loopIndex) => (
+          <div key={loopIndex} className="flex gap-6">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className="
+                  min-w-[320px]
+                  max-w-[320px]
+                  h-65
+                  bg-gray-50
+                  rounded-lg
+                  p-6
+                  relative
+                  flex
+                  flex-col
+                "
+              >
+                {/* Quotation Icon */}
+                <div className="absolute top-4 left-4">
+                  <span
+                    className="
+                      text-3xl
+                      font-serif
+                      bg-linear-to-br
+                      from-blue-500
+                      via-purple-500
+                      to-indigo-600
+                      text-transparent
+                      bg-clip-text
+                      select-none
+                    "
+                    style={{ WebkitTextStroke: "1px" }}
+                  >
+                    &rdquo;
+                  </span>
+                </div>
+
+                {/* Comment */}
+                <div
+  className="
+    mt-10
+    mb-4
+    text-sm
+    italic
+    text-gray-700
+    leading-relaxed
+    line-clamp-4
+  "
+>
+  {t.text}
+</div>
+
+
+                {/* Author */}
+                <div className="mt-auto">
+                  <div className="border-t border-gray-300 my-3" />
+                  <h4 className="font-bold text-sm">{t.name}</h4>
+                  <p className="text-xs text-gray-500">{t.role}</p>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        </div>
-      </section>
+        ))}
+      </motion.div>
+    </motion.div>
+  </div>
+</section>
+
+
+
+
+
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 py-20 lg:py-28">
+      <section className="bg-[url('/sethe.jpeg')] bg-cover bg-center bg-no-repeat py-20 lg:py-28">
+{/* text-[#0F172A] */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
             Ready to Bring Your Designs to Life?

@@ -135,7 +135,7 @@ const PortfolioRow = ({
       {row.map((item) => (
         <motion.div
           key={item.id}
-          className="group relative bg-white rounded-2xl shadow-md cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+          className="group relative bg-white rounded-2xl shadow-sm cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
           whileHover={{ scale: 1.03 }}
         >
           <div className="relative h-48 overflow-hidden rounded-t-2xl">
@@ -146,7 +146,7 @@ const PortfolioRow = ({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="absolute bottom-3 left-3 z-10">
-              <span className="bg-white/30 backdrop-blur-md text-gray-900 text-xs font-semibold px-3 py-1.5 rounded-full border border-white/40 shadow-md">
+              <span className="bg-white/30 backdrop-blur-md text-gray-900 text-xs font-semibold px-3 py-1.5 rounded-full border border-white/40">
                 {item.service}
               </span>
             </div>
