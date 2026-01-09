@@ -105,8 +105,8 @@ export default function DigitizingLandingPage() {
             {/* Right Image */}
             <div className="relative">
               <Image
-              width={50}
-              height={50}
+              width={500}
+              height={500}
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=600&fit=crop"
                 alt="Professional working at desk"
                 className="rounded-lg shadow-lg w-full h-auto"
@@ -123,8 +123,8 @@ export default function DigitizingLandingPage() {
             {/* Left Image */}
             <div className="relative">
               <Image
-              width={50}
-              height={50}
+              width={500}
+              height={500}
                 src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=600&fit=crop"
                 alt="Modern office workspace"
                 className="rounded-lg shadow-lg w-full h-auto"
