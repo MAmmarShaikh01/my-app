@@ -1,13 +1,13 @@
 "use client";
-
 import { Lightbulb, Shield, Award } from "lucide-react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useState } from "react";
 
-/* =======================
-   DATA (AKA BRAIN 🧠)
-======================= */
+/* ======================= 
+   DATA (AKA BRAIN 🧠) 
+   ======================= */
+
 const values = [
   {
     title: "Innovation",
@@ -25,6 +25,12 @@ const values = [
     icon: Award,
   },
 ];
+
+type Testimonial = {
+  name: string;
+  role: string;
+  text: string;
+};
 
 const team = [
   {
@@ -51,7 +57,7 @@ const timeline = [
   { year: "2022", desc: "Implemented AI-powered precision tools." },
 ];
 
-const testimonials = [
+const testimonials: Testimonial[] = [
   {
     name: "Sarah Jenkins",
     role: "CEO, Stellar Threads",
@@ -69,20 +75,78 @@ const testimonials = [
   },
 ];
 
+function TestimonialCard({ t }: { t: Testimonial }) {
+  return (
+    <div className="min-w-[320px] max-w-[320px] h-[260px] bg-gray-50 rounded-lg p-6 relative flex flex-col">
+      <div className="absolute top-4 left-4">
+        <span
+          className="text-3xl font-serif bg-linear-to-br from-blue-500 via-purple-500 to-indigo-600 text-transparent bg-clip-text select-none"
+          style={{ WebkitTextStroke: "1px" }}
+        >
+          &rdquo;
+        </span>
+      </div>
+      <p className="mt-10 mb-4 text-sm italic text-gray-700 leading-relaxed line-clamp-4">
+        {t.text}
+      </p>
+      <div className="mt-auto">
+        <div className="border-t border-gray-300 my-3" />
+        <h4 className="font-bold text-sm">{t.name}</h4>
+        <p className="text-xs text-gray-500">{t.role}</p>
+      </div>
+    </div>
+  );
+}
 
+function InfiniteTestimonials() {
+  const [isDragging, setIsDragging] = useState(false);
+  const x = useMotionValue(0);
+  
+  // Triple kiya hai testimonials ko for seamless infinite loop
+  const tripleTestimonials = [...testimonials, ...testimonials, ...testimonials];
+  
+  // Smooth infinite animation
+  useAnimationFrame(() => {
+    if (!isDragging) {
+      const currentX = x.get();
+      const cardWidth = 344; // 320px width + 24px gap
+      const singleSetWidth = cardWidth * testimonials.length;
+      
+      // Move left (speed adjust karna ho to ye number change karo)
+      let newX = currentX - 0.5;
+      
+      // Jab ek complete set scroll ho jaye, seamlessly reset
+      if (Math.abs(newX) >= singleSetWidth) {
+        newX = newX + singleSetWidth;
+      }
+      
+      x.set(newX);
+    }
+  });
+
+  return (
+    <div className="overflow-hidden">
+      <motion.div
+        className="flex gap-6 w-max cursor-grab"
+        style={{ x }}
+        drag="x"
+        dragMomentum={false}
+        whileTap={{ cursor: "grabbing" }}
+        dragConstraints={{ left: -344 * testimonials.length, right: 0 }}
+        onDragStart={() => setIsDragging(true)}
+        onDragEnd={() => setIsDragging(false)}
+        dragElastic={0.1}
+        dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+      >
+        {tripleTestimonials.map((t, i) => (
+          <TestimonialCard key={`testimonial-${i}`} t={t} />
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
 export default function DigitizingLandingPage() {
-  const controls = useAnimation();
-  useEffect(() => {
-  controls.start({
-    x: ["0%", "-50%"],
-    transition: {
-      repeat: Infinity,
-      duration: 30,
-      ease: "linear",
-    },
-  });
-}, [controls]);
   return (
     <div className="min-h-screen bg-gray-50" suppressHydrationWarning>
       {/* Hero Section */}
@@ -90,8 +154,8 @@ export default function DigitizingLandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="space-y-6 flex flex-col justify-center">
-              <h1 className="text-5xl lg:text-5xl font-bold text-gray-900 leading-tight text-center lg:text-left">
+            <div className="space-y-6 flex flex-col justify-center order-2 lg:order-1">
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight text-center lg:text-left">
                 Precision Digitizing for Unmatched Visuals
               </h1>
               <p className="text-gray-600 text-xl lg:text-lg text-center lg:text-left">
@@ -103,10 +167,10 @@ export default function DigitizingLandingPage() {
             </div>
 
             {/* Right Image */}
-            <div className="relative">
+            <div className="relative order-1 lg:order-2">
               <Image
-              width={500}
-              height={500}
+                width={500}
+                height={500}
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=600&fit=crop"
                 alt="Professional working at desk"
                 className="rounded-lg shadow-lg w-full h-auto"
@@ -123,8 +187,8 @@ export default function DigitizingLandingPage() {
             {/* Left Image */}
             <div className="relative">
               <Image
-              width={500}
-              height={500}
+                width={500}
+                height={500}
                 src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=600&fit=crop"
                 alt="Modern office workspace"
                 className="rounded-lg shadow-lg w-full h-auto"
@@ -153,13 +217,9 @@ export default function DigitizingLandingPage() {
           <h2 className="text-3xl lg:text-4xl font-bold mb-12">
             Our Mission: Empowering Creativity
           </h2>
-
           <div className="grid md:grid-cols-3 gap-8">
             {values.map((v) => (
-              <div
-                key={v.title}
-                className="bg-gray-50 p-8 rounded-xl space-y-4"
-              >
+              <div key={v.title} className="bg-gray-50 p-8 rounded-xl space-y-4">
                 <div className="flex justify-center">
                   <div className="bg-white p-4 rounded-full">
                     <v.icon className="w-8 h-8 text-[#0A21C0]" />
@@ -179,7 +239,6 @@ export default function DigitizingLandingPage() {
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-16">
             Our Services: Digital Art Solutions
           </h2>
-          
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {/* Embroidery Digitizing */}
             <div className="bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-md transition-shadow">
@@ -238,163 +297,51 @@ export default function DigitizingLandingPage() {
         </div>
       </section>
 
-      {/* Meet Our Team Section */}
- <section className="bg-white py-16 lg:py-24 text-black">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12">
-            Meet Our Team
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto">
-            {team.map((m) => (
-              <div key={m.name} className="text-center">
-                <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4">
-                  <Image
-                    src={m.img}
-                    alt={m.name}
-                    width={96}
-                    height={96}
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="font-bold">{m.name}</h3>
-                <p className="text-[#0A21C0] text-sm">{m.role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Our Journey Section */}
-  <section className="bg-gray-50 py-16 lg:py-24 ">
+      <section className="bg-gray-50 py-16 lg:py-24">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12 text-black">
             Our Journey Through Out The Years
           </h2>
+          <div className="space-y-10">
+            {timeline.map((t, index) => (
+              <div key={t.year}>
+                {/* Timeline Item */}
+                <div className="flex flex-col lg:flex-row items-start gap-3 lg:gap-6 py-4 lg:py-6">
+                  {/* Year */}
+                  <div className="text-[#0A21C0] font-semibold text-base lg:text-right w-full lg:w-20 shrink-0">
+                    {t.year}
+                  </div>
 
-          <div className="divide-y">
-            {timeline.map((t) => (
-              <div key={t.year} className="flex gap-6 py-6">
-                <div className="w-20 text-right font-semibold text-[#0A21C0]">
-                  {t.year}
+                  {/* Description */}
+                  <p className="text-gray-600 leading-relaxed w-full pl-0 lg:pl-0">
+                    {t.desc}
+                  </p>
                 </div>
-                <p className="text-gray-600">{t.desc}</p>
+
+                {/* Divider */}
+                {index !== timeline.length - 1 && (
+                  <div className="h-px bg-gray-300/70 mt-2 lg:mt-4" />
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="bg-white py-16 lg:py-24 text-black overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12">
+            What Our Clients Say
+          </h2>
 
-{/* Testimonials Section */}
-
-
-<section className="bg-white py-16 lg:py-24 text-black overflow-hidden">
-  <div className="max-w-7xl mx-auto px-4">
-    <h2 className="text-3xl lg:text-4xl font-bold text-center mb-12">
-      What Our Clients Say
-    </h2>
-
-    <motion.div className="overflow-hidden">
-      <motion.div
-        className="flex gap-6"
-        animate={controls}
-        initial={{ x: "0%" }}
-        drag="x"
-        dragConstraints={{
-          left: -((testimonials.length * 2 - 1) * 340),
-          right: 0,
-        }}
-        onDragStart={() => {
-          controls.stop(); 
-        }}
-        onDragEnd={() => {
-          controls.start({
-            x: ["0%", "-50%"],
-            transition: {
-              repeat: Infinity,
-              duration: 30,
-              ease: "linear",
-            },
-          });
-        }}
-      >
-        {[...Array(2)].map((_, loopIndex) => (
-          <div key={loopIndex} className="flex gap-6">
-            {testimonials.map((t, i) => (
-              <div
-                key={i}
-                className="
-                  min-w-[320px]
-                  max-w-[320px]
-                  h-65
-                  bg-gray-50
-                  rounded-lg
-                  p-6
-                  relative
-                  flex
-                  flex-col
-                "
-              >
-                {/* Quotation Icon */}
-                <div className="absolute top-4 left-4">
-                  <span
-                    className="
-                      text-3xl
-                      font-serif
-                      bg-linear-to-br
-                      from-blue-500
-                      via-purple-500
-                      to-indigo-600
-                      text-transparent
-                      bg-clip-text
-                      select-none
-                    "
-                    style={{ WebkitTextStroke: "1px" }}
-                  >
-                    &rdquo;
-                  </span>
-                </div>
-
-                {/* Comment */}
-                <div
-  className="
-    mt-10
-    mb-4
-    text-sm
-    italic
-    text-gray-700
-    leading-relaxed
-    line-clamp-4
-  "
->
-  {t.text}
-</div>
-
-
-                {/* Author */}
-                <div className="mt-auto">
-                  <div className="border-t border-gray-300 my-3" />
-                  <h4 className="font-bold text-sm">{t.name}</h4>
-                  <p className="text-xs text-gray-500">{t.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
-      </motion.div>
-    </motion.div>
-  </div>
-</section>
-
-
-
-
-
+          <InfiniteTestimonials />
+        </div>
+      </section>
 
       {/* CTA Section */}
-      <section className="bg-[url('/sethe.jpeg')] bg-cover bg-center bg-no-repeat py-20 lg:py-28">
-{/* text-[#0F172A] */}
+      <section className="bg-[url('/bg_image_blue.jpeg')] bg-cover bg-center bg-no-repeat py-20 lg:py-28">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
             Ready to Bring Your Designs to Life?
