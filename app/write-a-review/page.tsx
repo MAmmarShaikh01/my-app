@@ -137,22 +137,33 @@ export default function WriteReviewPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="order-1 lg:order-2"
           >
-            <div className="relative w-full aspect-square max-w-md mx-auto lg:max-w-none">
+            <div className="relative w-full aspect-[4/5] max-w-md mx-auto lg:max-w-none">
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="relative w-full h-full"
+                style={{
+                  borderRadius: "50% 50% 0 0",
+                }}
               >
                 <Image
                   src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=800&h=800&fit=crop"
                   alt="Colorful embroidery threads"
                   fill
-                  className="rounded-3xl object-cover shadow-2xl"
+                  className="object-cover shadow-2xl"
+                  style={{
+                    borderRadius: "50% 50% 0 0",
+                  }}
                   priority
                 />
                 {/* Gradient Overlay for better visual effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-orange-500/10" />
+                <div 
+                  className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-orange-500/10"
+                  style={{
+                    borderRadius: "50% 50% 0 0",
+                  }}
+                />
               </motion.div>
             </div>
           </motion.div>
