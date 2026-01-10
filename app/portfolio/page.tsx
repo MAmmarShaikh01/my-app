@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 
 type PortfolioItem = {
@@ -139,8 +140,10 @@ const PortfolioRow = ({
           whileHover={{ scale: 1.03 }}
         >
           <div className="relative h-48 overflow-hidden rounded-t-2xl">
-            <img
+            <Image
               src={item.path}
+              width={500}
+              height={500}
               alt={item.title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
@@ -184,21 +187,23 @@ export default function PortfolioSection() {
             Explore our diverse collection of digitized embroidery and vectorized art projects.See the quality and precision we bring to every design.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-3">
-            {filters.map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-6 py-2.5 rounded-full font-medium transition-all duration-300
-                  ${
-                    activeFilter === filter
-                      ? "bg-blue-600 text-white shadow-lg"
-                      : "bg-white text-gray-700 border border-gray-300 hover:border-blue-600 hover:text-blue-600"
-                  }`}
-              >
-                {filter}
-              </button>
-            ))}
+<div className="overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0">
+            <div className="flex flex-wrap justify-center gap-3 min-w-max md:min-w-0">
+              {filters.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-3 md:px-6 py-2.5 rounded-full font-medium transition-all duration-300 text-xs md:text-base whitespace-nowrap
+                    ${
+                      activeFilter === filter
+                        ? "bg-blue-600 text-white shadow-lg"
+                        : "bg-white text-gray-700 border border-gray-300 hover:border-blue-600 hover:text-blue-600"
+                    }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
